@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jithin George – Portfolio</title>
+
+  <style>
+    /* ── IMPORTS & BG EFFECT ── */
+    @import url("https://fonts.googleapis.com/css2?family=Varela+Round&family=Michroma&display=swap");
+    :root {
+      --dark-color: #191f1d;
+      --shadow:      #0005;
+      --noise-tx:    url(https://i.gyazo.com/a26366e538851a5c569ff648e99b7fd4.png);
+      --gif-tx:      url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+      --bg-gradient: linear-gradient(var(--dark-color) 77.4%, var(--dark-color) 87.48%);
+    }
+
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: var(--bg-gradient);
+      animation: spawn 2s ease-in-out forwards;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+        /* you may already have padding-top: 60px; bump it up to match total height */
+        padding-top: 45px; 
+    }
+
+    html::before, body::before {
+      content: "";
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background-image: var(--noise-tx);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: -1;
+    }
+    html:hover::after, body:hover::after {
+      content: "";
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background-image: var(--gif-tx);
+      background-repeat: no-repeat;
+      background-size: cover;
+      mix-blend-mode: screen;
+      opacity: 0.64;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @keyframes spawn {
+      0%   { box-shadow: 0 0 0 var(--shadow); opacity: 0; }
+      100% { box-shadow: 0 0 32px var(--shadow); opacity: 1; }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      letter-spacing: 1px;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ======================================
+       2) HEADER & NAVIGATION
+       ====================================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #1c1d22; padding: 10px 0;
+      z-index: 5;
+    }
+    .menu {
+      display: flex; justify-content: center;
+      list-style: none;
+    }
+    .menu li { margin: 0 20px; }
+    .menu a {
+      font-size: 1.1rem; color: #777;
+      text-decoration: none; padding: 5px 0;
+      transition: color .3s;
+      display: inline-block;
+    }
+    .menu li:hover {
+      background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEi%0D%0AIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhs%0D%0AaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0%0D%0AaD0iMzkwcHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDM5MCA1MCIgZW5hYmxlLWJhY2tn%0D%0Acm91bmQ9Im5ldyAwIDAgMzkwIDUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZmlsbD0i%0D%0Abm9uZSIgc3Ryb2tlPSIjZDk0ZjVjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW1pdGVybGlt%0D%0AaXQ9IjEwIiBkPSJNMCw0Ny41ODVjMCwwLDk3LjUsMCwxMzAsMAoJYzEzLjc1LDAsMjguNzQtMzgu%0D%0ANzc4LDQ2LjE2OC0xOS40MTZDMTkyLjY2OSw0Ni41LDI0My42MDMsNDcuNTg1LDI2MCw0Ny41ODVj%0D%0AMzEuODIxLDAsMTMwLDAsMTMwLDAiLz4KPC9zdmc+Cg==") no-repeat center bottom;
+      animation: line 1s;
+    }
+    .menu li:hover a { color: #006BFF; }
+
+    .menu li.brand { cursor: default; }
+    .menu li.brand:hover { background: none !important; }
+    .menu li.brand a { color: #fff; font-weight: bold; }
+
+    @keyframes line { 0% { background-position-x: 390px; } }
+
+    /* ======================================
+       4) SECTION WRAPPERS (Projects & Experience)
+       ====================================== */
+    .section-wrapper {
+      max-width: 900px; margin: 2rem auto; padding: 0 1rem;
+    }
+    .section-wrapper h2 {
+      font-size: 1.75rem; margin-bottom:1rem;
+      border-bottom:2px solid #e1e4e8; padding-bottom:.5rem;
+    }
+    .section-wrapper p,
+    .section-wrapper ul li {
+      color: #586069; font-size:1rem; line-height:1.5;
+    }
+
+    /* ======================================
+       5) PROJECT CARDS GRID (projects.html)
+       ====================================== */
+    .project-cards {
+      display: grid; gap:1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    }
+    .project-card {
+      background:#fff; border:1px solid #e1e4e8;
+      border-radius:6px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition: box-shadow .2s, transform .1s;
+    }
+    .project-card:hover {
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      transform: translateY(-2px);
+    }
+    .project-card a.full-link {
+      display:block; width:100%; height:100%; color:inherit;
+    }
+    .card-image {
+      position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;
+    }
+    .card-image img {
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; object-position:center;
+    }
+    .card-content {
+      padding:1rem;
+    }
+    .card-content h3 {
+      font-size:1.25rem; margin-bottom:.5rem; color:#0366d6;
+    }
+    .card-content p {
+      color:#586069; font-size:.95rem; line-height:1.4;
+    }
+
+
+
+    /* ======================================
+       7) FOOTER
+       ====================================== */
+    footer {
+      color:#fff;
+      text-align:center; padding:1rem 0; margin-top:2rem;
+    }
+    footer p {
+      font-size:.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 2) HEADER & NAVIGATION -->
+  <nav>
+    <ul class="menu">
+      <li><a href="HomePage.html">Home</a></li>
+      <li><a href="https://github.com/Jithin27George">GitHub</a></li>
+      <li class="brand"><a href="#">JITHIN GEORGE</a></li>
+      <li><a href="https://linkedin.com/in/jithin-george27">LinkedIn</a></li>
+      <li><a href="mailto:gjithin5241235@gmail.com">Email</a></li>
+    </ul>
+  </nav>
+
+
+
+  <!-- 4) PROJECTS -->
+  <section class="section-wrapper" id="projects">
+    <div class="project-cards">
+
+      <!-- ==== PROJECT CARD #1 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="Projects/Hexy/Hexyindex.html" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/hexy.jpeg"/>
+            </div>
+            <div class="card-content">
+              <h3>Hexapod Autonomous Navigation</h3>
+              <p>SLAM + MPC on a six-legged robot using ZED stereo camera and ROS2. Real-time pose logging, obstacle avoidance, and dynamic gait control.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <!-- ==== PROJECT CARD #1 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="Projects/SHAWG/SHAWGindex.html" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/render-dav-pillow-immerso-fino-al-collo.png"/>
+            </div>
+            <div class="card-content">
+              <h3>Solar Hybrid Atmospheric Water Generator</h3>
+              <p>A solar-hybrid atmospheric water generator uses solar thermal and electrical power with silica-gel adsorption and Peltier condensers to quietly produce up to 0.9 L/hr of potable water from humid air, offering a compact, energy-efficient alternative to vapor-compression systems.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+            <!-- ==== PROJECT CARD #1 ==== -->
+            <div class="project-card">
+                <a class="full-link" href="https://github.com/Jithin27George/ROB6323-Reinforcement-learning-and-optimal-control-for-robotics/tree/main/Project%202" target="_blank">
+                  <div class="card-inner">
+                    <div class="card-image">
+                      <img src="assests/images/quadrotor.png"/>
+                    </div>
+                    <div class="card-content">
+                      <h3>Quadrotor Navigation with Reinforcement Learning</h3>
+                      <p>A custom simulation environment was built with stable\_baselines3, featuring state and reward functions that guide the drone toward a target while safely avoiding obstacles. The Proximal Policy Optimization (PPO) algorithm was then used to train an agent end-to-end—hyperparameters were tuned, training curves monitored, and performance validated—to achieve smooth, reliable flight paths across a variety of simulated scenarios.
+                    </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+
+                  <!-- ==== PROJECT CARD #1 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB6323-Reinforcement-learning-and-optimal-control-for-robotics/tree/main/Homework/Series%204" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/pendulum.png"/>
+            </div>
+            <div class="card-content">
+              <h3>	Q-Learning with Neural Networks for Inverted Pendulum</h3>
+              <p>This project applies Q-learning with neural network function approximation to the inverted pendulum control problem. A PyTorch-based model approximates Q-values, and a policy is trained to minimize a predefined cost function. Deliverables include the full algorithm implementation, performance analysis through cost and value-function plots, and a demonstration video showcasing the pendulum’s behavior.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+
+
+            <!-- ==== PROJECT CARD #1 ==== -->
+            <div class="project-card">
+                <a class="full-link" href="https://github.com/Jithin27George/ROB6323-Reinforcement-learning-and-optimal-control-for-robotics/tree/main/Homework/Series%203" target="_blank">
+                  <div class="card-inner">
+                    <div class="card-image">
+                      <img src="assests/images/gridWorld.png"/>
+                    </div>
+                    <div class="card-content">
+                      <h3>Grid-World: Value Iteration and Policy Iteration for Optimal Control</h3>
+                      <p>This project explores solving a Grid-World problem using Value Iteration and Policy Iteration algorithms to compute the Optimal Policy and Value Function. The project compares the computational complexity and convergence behavior of the two methods, providing insights into their application in real-world Optimal Control problems.</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+
+
+
+
+                  <!-- ==== PROJECT CARD #1 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB6323-Reinforcement-learning-and-optimal-control-for-robotics/tree/main/Project1" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/quadrotor.png"/>
+            </div>
+            <div class="card-content">
+              <h3>Trajectory Optimization and Model Predictive Control for 2D Quadrotor</h3>
+              <p>A control system was developed for a 2D quadrotor to execute a looping maneuver using optimization-based methods. Trajectory planning is performed via Sequential Quadratic Programming (SQP), and the approach is extended with Model Predictive Control (MPC) to ensure real-time adaptability and robustness in simulation.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+
+
+
+
+            <!-- ==== PROJECT CARD #1 ==== -->
+            <div class="project-card">
+                <a class="full-link" href="https://github.com/Jithin27George/ROB6323-Reinforcement-learning-and-optimal-control-for-robotics/tree/main/Homework/Series%202" target="_blank">
+                  <div class="card-inner">
+                    <div class="card-image">
+                      <img src="assests/images/pendulum.png"/>
+                    </div>
+                    <div class="card-content">
+                      <h3>Implementation of SQP for Nonlinear Optimal Control</h3>
+                      <p>A Sequential Quadratic Programming (SQP) solver is implemented to tackle a nonlinear optimal control problem for pendulum dynamics. By discretizing the system and applying optimization routines, the solver drives the pendulum to a target configuration with minimal energy expenditure and high-precision control.
+                    </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+
+      <!-- ==== PROJECT CARD #4 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Visual-Navigation-and-Embodied-AI.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/target1.png" />
+            </div>
+            <div class="card-content">
+              <h3>Visual Navigation and Embodied AI</h3>
+              <p> This project implements an embodied AI agent capable of navigating a maze using visual input alone. The agent uses a camera feed to perceive its environment, extract semantic features, compute the optimal path, and autonomously navigate toward a goal.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #5 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW_1/Q4" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/Img_LP.jpg" />
+            </div>
+            <div class="card-content">
+              <h3>Tag-based Augmented Reality: AR Cube Projection on ArUco Markers</h3>
+              <p> This project implements tag-based augmented reality using ArUco markers. It detects and identifies markers in the camera feed, computes each marker’s pose, and superimposes 3D models—like a cube—onto them. Built with OpenCV, the system handles intrinsic camera calibration, defines marker dimensions, and performs precise pose transformations to ensure accurate AR overlays from multiple viewpoints.
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #6 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW2/Q1" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/demo_pc_after_ransac.png" />
+            </div>
+            <div class="card-content">
+              <h3>RANSAC-Based 3D Plane Fitting for Point Cloud Data</h3>
+              <p> A RANSAC-based plane-fitting pipeline was developed for 3D point clouds, iteratively sampling points and classifying inliers to robustly estimate plane parameters despite outliers. Adaptive sampling strategies optimize the computation, and results are visualized in Open3D—with inliers rendered in red and outliers in green—to clearly highlight dominant planar structures for computer vision and robotics applications.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #7 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW_1/Q2" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/pytorch.png" />
+            </div>
+            <div class="card-content">
+              <h3>Latent Embeddings & Classification</h3>
+              <p> An autoencoder was used to compress Fashion-MNIST images into a compact latent space, then t-SNE projections revealed well-separated clusters corresponding to each class. A lightweight classifier trained on those latent representations achieved 85.48 % test accuracy, exhibited stable loss/accuracy curves, and highlighted a few illustrative misclassifications.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      
+
+
+      <!-- ==== PROJECT CARD #9 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW2/Q2" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/aligned_result_T2a.png" />
+            </div>
+            <div class="card-content">
+              <h3>ICP-Based 3D Point Cloud Alignment Using Open3D</h3>
+              <p> An Iterative Closest Point (ICP) pipeline was built to register 3D point clouds by iteratively refining rigid-body transformations from point correspondences. The work comprises two experiments—one on Open3D’s sample clouds and another on the KITTI driving dataset—leveraging centroid alignment, correspondence matching, and SVD-based rotation estimation. Convergence of the mean-square error is tracked to assess performance, and the resulting alignments are compared to highlight ICP’s accuracy, robustness to noise, and practical limitations.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #10 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW2/Q3" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/Fmat.png" />
+            </div>
+            <div class="card-content">
+              <h3>F-Matrix and Relative Pose Estimation for Stereo Vision</h3>
+              <p> A pipeline was developed to compute the Fundamental Matrix and recover relative camera pose (rotation and translation) from two stereo images using ArUco markers for robust point correspondences. RANSAC filters out mismatches and yields an accurate F-Matrix, whose epipolar constraints are visualized by overlaying epipolar lines on the images. The Essential Matrix is then derived and decomposed to extract the rotation (R) and translation (t) between views, with visual feedback validating the quality of the estimated parameters.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #11 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW2/Q4" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/Optflw.png" />
+            </div>
+            <div class="card-content">
+              <h3>Object Tracking: Sparse and Dense Optical Flow</h3>
+              <p> An object-tracking pipeline was built to follow targets across video sequences using optical flow. Both Lucas–Kanade’s sparse method and Farneback’s dense algorithm are implemented to enable persistent bounding-box tracking and motion-field visualization. The project compares each method’s efficiency and accuracy, providing detailed, step-by-step explanations and empirical results.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #12 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/ROB-GY-6203-Robot-Perception/tree/main/HW2/Q5" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/skiptrace.jpg" />
+            </div>
+            <div class="card-content">
+              <h3>Skiptrace: Visual Place Recognition for Surveillance</h3>
+              <p>A Visual Place Recognition pipeline was developed to match query images against a surveillance photo database using feature-based techniques. The system extracts SIFT descriptors, encodes them via VLAD, and applies k-means clustering for efficient indexing. This structured workflow covers feature extraction, descriptor aggregation, query processing, and visualization of retrieved matches from large-scale datasets.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #16 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Vision-and-IMU-Fusion-with-Unscented-Kalman-Filter-UKF-.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/vision_imu_ukf.jpg" />
+            </div>
+            <div class="card-content">
+              <h3>Vision and IMU Fusion with Unscented Kalman Filter (UKF)</h3>
+              <p>An Unscented Kalman Filter (UKF)–based sensor fusion framework was developed to merge IMU readings with vision-derived measurements for more accurate robot state estimation. The UKF was chosen for its ability to handle nonlinear system dynamics and limited observations. Two evaluation scenarios were implemented—one using visual pose data for position and orientation, and another using optical flow to supply velocity measurements. Estimated trajectories were then compared against ground-truth data, demonstrating the UKF’s superior performance in managing nonlinearities and sparse measurement inputs.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <!-- ==== PROJECT CARD #13 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Robotic-Kinematics-and-Visualization.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/plant_machete.jpg" />
+            </div>
+            <div class="card-content">
+              <h3>Robotic Kinematics and Visualization</h3>
+              <p>A forward- and inverse-kinematics engine was implemented to compute precise joint angles and end-effector poses for robotic manipulators, with results rendered as a “connect-the-dots” stick-figure model. The system features robust error handling for unreachable target configurations and modular components covering forward-kinematics calculation, inverse-kinematics solving, and real-time visualization.
+            </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #14 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Pill-Sorter.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/smartsorter.png" />
+            </div>
+            <div class="card-content">
+              <h3>Pill Sorter</h3>
+              <p> A real-time object classification system that utilizes computer vision to sort items based on their shape and color. The system integrates a Raspberry Pi for image processing and an Arduino for hardware control, enabling automated sorting through motorized mechanisms.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <!-- ==== PROJECT CARD #16 ==== -->
+      <div class="project-card">
+          <a class="full-link" href="Projects/ESVC/ESVCIndex.html" target="_blank">
+            <div class="card-inner">
+              <div class="card-image">
+                <img src="assests/images/isie.jpg" />
+              </div>
+              <div class="card-content">
+                <h3>Electric Solar Vehicle Competition - ISIE</h3>
+                <p></p>
+              </div>
+            </div>
+          </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #16 ==== -->
+      <div class="project-card">
+          <a class="full-link" href="Projects/Efficycle/EffiIndex.html" target="_blank">
+            <div class="card-inner">
+              <div class="card-image">
+                <img src="assests/images/effi.png" />
+              </div>
+              <div class="card-content">
+                <h3>Efficycle 2019 - SAE</h3>
+                <p></p>
+              </div>
+            </div>
+          </a>
+      </div>
+
+
+      
+
+      <!-- ==== PROJECT CARD #15 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Automated-Industrial-Waste-Disposal-System.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/wastesys.png" />
+            </div>
+            <div class="card-content">
+              <h3>Automated Waste Disposal System</h3>
+              <p>A fully Arduino-based sorting system that identifies industrial waste by color and moves it to the correct bin. </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ==== PROJECT CARD #16 ==== -->
+      <div class="project-card">
+        <a class="full-link" href="https://github.com/Jithin27George/Alarm-Buddy.git" target="_blank">
+          <div class="card-inner">
+            <div class="card-image">
+              <img src="assests/images/pillpal.png" />
+            </div>
+            <div class="card-content">
+              <h3>Alarm Buddy</h3>
+              <p>This project focuses on a customizable alarm clock system for an integrated medication dispenser and LDR-sensitive night light</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+
+  </section>
+
+
+  <footer>
+    <center><p>---------------- © 2025 Jithin George. All rights reserved ----------------</p></center>
+  </footer>
+</body>
+</html>

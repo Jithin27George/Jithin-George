@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Hexy: Legged Hexapod</title>
+
+  <!-- 1. Import Michroma from Google Fonts -->
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" 
+    rel="stylesheet"
+  />
+
+  <style>
+    html, body {
+      border-top: 10px solid #006BFF;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(18, 18, 18);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+  
+    /* Left text panel */
+    #text-panel {
+      flex: 1;
+      box-sizing: border-box;
+      padding: 2rem;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+  
+    /* Michroma heading */
+    #text-panel h1 {
+      margin-top: 0;
+      font-family: 'Michroma', sans-serif;
+      font-size: 7rem;
+      color: #eee;
+      line-height: 1.1;
+    }
+  
+    /* Justified, larger paragraph text */
+    #text-panel p {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      color: #ddd;
+      text-align: justify;      /* ← add this line */
+    }
+  
+    /* Right viewer square */
+    #viewer {
+      flex: 0 0 75vh;
+      height: 75vh;
+      position: relative;
+      overflow: hidden;
+    }
+    #viewer canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cta-buttons {
+      display: flex;
+      
+      gap: 1rem;           /* space between buttons */
+      margin-top: 2rem;
+    }
+    
+    /* Individual button links */
+    .cta-buttons a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #006BFF;  /* blue box */
+      color: #FFFFFF;             /* white text */
+      text-decoration: none;      /* remove underline */
+      border-radius: 4px;         /* slight rounding */
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+    
+    .cta-buttons a:hover {
+      background-color: #0054CC;  /* darker blue on hover */
+    }
+  </style>
+  
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "jsm/":   "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div id="text-panel">
+    <h1>Hexy: The Hexapod</h1>
+    <p>
+      Hexy is a six-legged robot that has been designed to confidently explore tricky terrain. While traditional wheeled robots may become stuck and bipedal ones may be unstable, Hexy’s hexapod structure provides the balance and control needed to move smoothly across everything from rocky ground to city rubble and even potential use on other planets.
+    </p>
+    <p>
+      Developed as part of a graduate research project at NYU, Hexy has been built for intelligent movement. Model Predictive Control (MPC) is used to plan steps in real time, while camera and IMU data are fused to estimate location and motion. With Visual SLAM, the surrounding environment is mapped during navigation, and autonomous obstacle avoidance enables the robot to adapt its path in response to unexpected barriers.
+    </p>
+    <p>
+      Whether industrial sites are being inspected or distant terrains are being explored, Hexy has been designed to go where other robots cannot.
+    </p>
+    <center>
+        <!-- Call-to-action buttons -->
+        <div class="cta-buttons">
+          <a href="media.html">Media</a>
+          <a href="https://github.com/Jithin27George/Hexapod.git">Github</a>
+        </div>
+    </center>
+  </div>
+
+  <div id="viewer"></div>
+  <script type="module" src="indexhexy.js"></script>
+
+  
+
+</body>
+</html>

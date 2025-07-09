@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Solar Hybrid Atmospheric Water Generator</title>
+
+  <!-- Michroma for the heading -->
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"           rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* page reset & dark background */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      background: #1c1d22;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    /* fixed blue stripe */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: #006BFF;
+      z-index: 1000;
+    }
+    /* push everything below that stripe */
+    body {
+      padding-top: 10px;
+    }
+    /* container to center everything */
+    .container {
+      width: 90vw; 
+      max-width: 2500px;
+      margin: auto;
+      text-align: center;
+    }
+
+    /* heading */
+    h1 {
+      font-family: 'Michroma', sans-serif;
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* horizontal row of images */
+    .image-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .image-row > .image-container {
+      position: relative;
+      flex: 1;
+    }
+
+    .image-row img {
+      flex: 1;
+      max-width: calc((100% - 2rem) / 3);
+      height: auto;
+      border-radius: 4px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Hotspot over circle 1 */
+    .hotspot {
+      position: absolute;
+      /* you will need to tweak these to sit EXACTLY over your “1” circle */
+
+      width:  20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      /* keep it transparent so the diagram still shows through */
+      background: rgb(225, 225, 225, 0.15);
+    }
+
+    /* info‐box under the images */
+    #info-box {
+      font-family: 'Inter', sans-serif;
+      margin-top: 2rem;
+      background: #111;
+      color: #0ff;
+      padding: 1rem;
+      min-height: 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    #info-box.default {
+      font-family: 'Monoid', monospace;
+      justify-content: flex-start;
+      text-align: left;
+      padding-left: 1rem;
+    }
+
+    /* THIS is the one that actually shrinks the text */
+    #info-box.default h2 {
+      font-size: 0.75rem;
+      color: #0ff;
+    }
+
+
+    .hs-1 { left: 26.8%; top: 60.5%; }
+    .hs-2 { left: 26.9%; top: 57.9%; }
+    .hs-3 { left: 26.75%; top: 42.9%; }
+    .hs-4 { left: 26.6%; top: 39.4%; }
+    .hs-5 { left: 26.6%; top: 36.8%; }
+    .hs-6 { left: 22.1%; top: 32.75%; } 
+    .hs-7 { left: 18.65%; top: 31.05%; }
+    .hs-8 { left: 15.75%; top: 37.5%; }
+    .hs-9 { left: 13.35%; top: 38.55%; }
+    .hs-10 { left: 13.8%; top: 44.3%; }
+    .hs-11 { left: 16.5%; top: 48.1%; }
+    .hs-12 { left: 11.102%; top: 45.4%; }
+    .hs-13 { left: 12.05%; top: 68.2%; }
+    .hs-14 { left: 13.8%; top: 68.8%; }
+    .hs-15 { left: 15.9%; top: 67.7%;  }
+    .hs-16 { left: 17.88%; top: 68.8%; }
+    .hs-17 { left: 19.3%; top: 69.1%; }
+    .hs-18 { left: 20.8%; top: 69.1%; }
+    .hs-19 { left: 17.4%; top: 66.5%; }
+    .hs-20 { left: 22.6%; top: 66.4%; }
+    .hs-21 { left: 46.8%; top: 43.8%; }
+    .hs-22 { left: 55.6%; top: 58.8%; }
+    .hs-23 { left: 56.135%; top: 62.8%; }
+    .hs-24 { left: 56.135%; top: 66.9%; }
+    .hs-25 { left: 45.25%; top: 35.4%; }
+    .hs-26 { left: 54.25%; top: 49.9%; }
+    .hs-27 { left: 55.85%; top: 51.1%; }
+    .hs-28 { left: 57.55%; top: 47.9%; }
+    .hs-29 { left: 74%; top: 62.4%; }
+    .hs-30 { left: 81.2%; top: 63.7%; }
+    .hs-31 { left: 86%; top: 67.8%; }
+    .hs-32 { left: 85.7%; top: 54.4%; }
+    .hs-33 { left: 86%; top: 52.2%; }
+    .hs-34 { left: 79.3%; top: 33.3%; }
+    .hs-35 { left: 76.8%; top: 33.3%; }
+    .hs-36 { left: 75.4%; top: 34.5%; } 
+
+    /* base holographic card style (tweaked for a small info‐box) */
+    .holographic-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      background: #111;
+      padding: 1rem 2rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 300px;
+      transition: all 0.5s ease;
+    }
+
+    /* the <h2> inside: default & active text styling */
+    .holographic-card h2 {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: #0ff;
+      font-size: 1.25rem;
+    }
+
+    /* the moving shimmer */
+    .holographic-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        0deg, 
+        transparent, 
+        transparent 30%, 
+        rgba(0,255,255,0.3)
+      );
+      transform: rotate(-45deg);
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+
+    /* when active, we pulse & show the shimmer */
+    .holographic-card.active {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0,255,255,0.5);
+    }
+
+    .holographic-card.active::before {
+      opacity: 1;
+      transform: rotate(-45deg) translateY(100%);
+    }
+
+    /* override for the “default” prompt style */
+    .holographic-card.default h2 {
+      font-family: 'Courier New', monospace;
+      color: #f66;
+      font-size: 1.5rem;
+    }
+
+    /* small media‐query to stack on very narrow screens */
+    @media (max-width: 600px) {
+      .image-row {
+        flex-direction: column;
+      }
+      .image-row img {
+        max-width: 100%;
+      }
+      /*.hotspot {
+        /* you may also need to re-tweak these at small sizes 
+      }*/
+    }
+
+
+
+
+    
+  </style>
+</head>
+<body>
+  <div class="top-bar"></div>
+  <div class="container">
+    <h1>Solar Hybrid Atmospheric Water Generator</h1>
+    <div class="image-row">
+      
+
+      
+       
+       <div class="hotspot hs-1"  data-label="①  Support/Frame"></div>
+       <div class="hotspot hs-2"  data-label="②  Vacuum Pump"></div>
+       <div class="hotspot hs-3"  data-label="③  Hot Water Pump"></div>
+       <div class="hotspot hs-4"  data-label="④  Immersion Heating Element"></div>
+       <div class="hotspot hs-5"  data-label="⑤  Heating Tank"></div>
+       <div class="hotspot hs-6"  data-label="⑥  Vacuum Gauge"></div>
+       <div class="hotspot hs-7"  data-label="⑦  Pressure Gauge"></div>
+       <div class="hotspot hs-8"  data-label="⑧  Ball Valve V1"></div>
+       <div class="hotspot hs-9"  data-label="⑨  Adsorption Chamber"></div>
+       <div class="hotspot hs-10" data-label="⑩  Centrifugal Blower"></div>
+       <div class="hotspot hs-11" data-label="⑪  Diaphragm Pump"></div>
+       <div class="hotspot hs-12" data-label="⑫  ¾ Ball Valve V2"></div>
+       <div class="hotspot hs-13" data-label="⑬  Cooling Tank"></div>
+       <div class="hotspot hs-14" data-label="⑭  HDPE Casing"></div>
+       <div class="hotspot hs-15" data-label="⑮  Radiator A"></div>
+       <div class="hotspot hs-16" data-label="⑯  Radiator B"></div>
+       <div class="hotspot hs-17" data-label="⑰  Radiator C"></div>
+       <div class="hotspot hs-18" data-label="⑱  ¾ Ball Valve V3"></div>
+       <div class="hotspot hs-19" data-label="⑲  ¾ Ball Valve V4"></div>
+       <div class="hotspot hs-20" data-label="⑳  Charging Line"></div>
+       <div class="hotspot hs-21" data-label="㉑  Aluminium Tank With Embedded Fins"></div>
+       <div class="hotspot hs-22" data-label="㉒  Aluminium Heat Sink"></div>
+       <div class="hotspot hs-23" data-label="㉓  Peltier Modules"></div>
+       <div class="hotspot hs-24" data-label="⑭  HDPE Casing"></div>
+       <div class="hotspot hs-25" data-label="⑪  Diaphragm Pump"></div>
+       <div class="hotspot hs-26" data-label="⑮  Radiator A"></div>
+       <div class="hotspot hs-27" data-label="⑯  Radiator B"></div>
+       <div class="hotspot hs-28" data-label="⑰  Radiator C"></div>
+       <div class="hotspot hs-29" data-label="㉖  Union Coupler"></div>
+       <div class="hotspot hs-30" data-label="㉕  Immersion Pillow Plates"></div>
+       <div class="hotspot hs-31" data-label="㉘  Solar Collector"></div>
+       <div class="hotspot hs-32" data-label="③  Hot Water Pump"></div>
+       <div class="hotspot hs-33" data-label="④  Immersion Heating Element"></div>
+       <div class="hotspot hs-34" data-label="⑤  Heating Tank"></div>
+       <div class="hotspot hs-35" data-label="㉔  Silicon Pipe"></div>
+       <div class="hotspot hs-36" data-label="㉗  Adsorption Chamber Sealant Plate"></div>
+       
+  
+      <img src="Media/Img2.jpg" alt="SHAWG Prototype">
+      <img src="Media/Img3.jpg"  alt="TEC Corridor">
+      <img src="Media/Img4.jpg"  alt="Adsorption Chamber">
+
+
+    </div>
+
+    <!-- inside your .container, replacing your old info-box -->
+    <div id="info-box" class="holographic-card default">
+      <h2>Move your cursor over any component to reveal its name............</h2>
+    </div>
+  
+  </div>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const infoBox     = document.getElementById('info-box');
+      const heading     = infoBox.querySelector('h2');
+      const defaultText = heading.textContent;
+  
+      document.querySelectorAll('.hotspot').forEach(hs => {
+        hs.addEventListener('mouseover', () => {
+          infoBox.classList.remove('default');
+          infoBox.classList.add('active');
+          heading.textContent = hs.dataset.label;
+        });
+        hs.addEventListener('mouseout', () => {
+          infoBox.classList.remove('active');
+          infoBox.classList.add('default');
+          heading.textContent = defaultText;
+        });
+      });
+    });
+  </script>
+  
+  
+  
+</body>
+</html>

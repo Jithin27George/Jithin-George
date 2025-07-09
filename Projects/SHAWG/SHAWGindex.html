@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Solar Hybrid Atmospheric Water Generator</title>
+
+  <!-- Michroma for the heading -->
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset + dark background */
+    html, body {
+      margin: 0; padding: 0;
+      background: #1c1d22; color: #fff;
+      font-family: sans-serif;
+      padding-top: 1px;
+    }
+
+    /* Center everything in a max‐width container */
+    .container {
+      width: 90vw; max-width: 700px;
+      margin: 2rem auto 2rem;
+    }
+
+    /* Title */
+    h1 {
+      font-family: 'Michroma', sans-serif;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Slider: explicit height so images show */
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 50vh;        /* ← use half the viewport height */
+      max-height: 700px;   /* optional cap so it doesn’t get absurdly tall */
+      overflow: hidden;
+      border-radius: 8px;
+      background: #111;
+    }
+    .slides {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    .slide {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Arrows with a little transparent backdrop */
+    .arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.3);
+      color: #fff; font-size: 2rem;
+      padding: 0.5rem; cursor: pointer;
+      border-radius: 4px; user-select: none;
+    }
+    .arrow.prev { left: 1rem; }
+    .arrow.next { right: 1rem; }
+
+    /* Description: aligned under slider and justified */
+    .description {
+      margin-top: 1.5rem;
+      text-align: justify;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    nav {
+      /* stick to top */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #1c1d22;
+      /* add a little breathing room */
+      padding: 10px 0;
+      z-index: 100;
+    }
+
+
+    .menu {
+      display: flex;
+      justify-content: center;    /* center horizontally */
+      align-items: center;        /* center vertically within padding */
+      list-style: none;
+    }
+
+    .menu li {
+      margin: 0 20px;
+    }
+
+    .menu li a {
+      display: inline-block;
+      font-size: 22px;
+      color: #777;
+      text-decoration: none;
+      line-height: 1;
+      padding: 10px 0;
+      white-space: nowrap;
+      transition: color 0.45s;
+    }
+
+    .menu li:hover {
+      background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEi%0D%0AIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhs%0D%0AaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0%0D%0AaD0iMzkwcHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDM5MCA1MCIgZW5hYmxlLWJhY2tn%0D%0Acm91bmQ9Im5ldyAwIDAgMzkwIDUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZmlsbD0i%0D%0Abm9uZSIgc3Ryb2tlPSIjZDk0ZjVjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW1pdGVybGlt%0D%0AaXQ9IjEwIiBkPSJNMCw0Ny41ODVjMCwwLDk3LjUsMCwxMzAsMAoJYzEzLjc1LDAsMjguNzQtMzgu%0D%0ANzc4LDQ2LjE2OC0xOS40MTZDMTkyLjY2OSw0Ni41LDI0My42MDMsNDcuNTg1LDI2MCw0Ny41ODVj%0D%0AMzEuODIxLDAsMTMwLDAsMTMwLDAiLz4KPC9zdmc+Cg==");
+      animation: line 1s;
+    }
+
+    .menu li:hover a {
+      color: #006BFF;
+    }
+
+
+    @keyframes line {
+      0% { background-position-x: 390px; }
+    }
+
+    /* push page content down so it isn't hidden under the fixed nav */
+    .content {
+      padding-top: 70px;
+    }
+
+  </style>
+</head>
+<body>
+    <nav>
+    <ul class="menu">
+      <li><a href="Diagram.html">System Components Overview</a></li>
+      <li><a href="https://drive.google.com/file/d/1EsffHzECB7guyHXzCJvu3QpkmcCr8stq/view">Patent</a></li>
+    </ul>
+  </nav>
+
+  <div class="content">  </div>
+  
+  
+  <div class="container">
+    <h1>Solar Hybrid Atmospheric Water Generator</h1>
+
+    <div class="slider">
+      <div class="slides">
+        <div class="slide">
+          <img src="Media/Img11.jpg" alt="SHAWG Prototype">
+        </div>
+        <div class="slide">
+          <img src="Media/Img5.jpg" alt="TEC Corridor">
+        </div>
+        <div class="slide">
+          <img src="Media/Img1.jpg" alt="Adsorption Chamber">
+        </div>
+      </div>
+      <div class="arrow prev">‹</div>
+      <div class="arrow next">›</div>
+    </div>
+
+    <div class="description">
+      <p>
+The prototype Solar Hybrid Adsorption Water Generator (SHAWG) offers another alternative to atmospheric water generation from the present Vapour Compression Refrigeration System (VCRS) method. It combines the adsorption/desorption and peltier effect to bring about this process. Subsequently the system comprises of two main units; adsorption/desorption chamber [9] and the Thermo Electric Cooler (TEC) corridor supported by auxiliary units like, cooling system, heating system, blower [10] etc.
+</p>
+<p>
+Component A: Adsorption/desorption chamber  
+The adsorption/desorption chamber and its various components are shown in Figure 1. The chamber is designed to work under a vacuum of and temperature of 100°C. The chamber is constructed in a cuboidal manner with support members running inside to prevent any buckling during the vacuuming process. The chamber is provided with a manhole at the base to ease access. Pressure [7] and vacuum [6] gauges are mounted on the top of the chamber head. The unit consists of five wire meshed immersion plates [25] connected in series. Each plate is charged with a kilogram of Type-A silica gel. The inlet and exits of the plates are joined to the chamber head [27] by means of unions [26]. This setup confers additional stability to the head so as to not buckle inward. The entire chamber head can be lifted from top along with the plates for cleaning or recharging.
+</p>
+<p>
+Component B: TEC corridor  
+The unit provides the cooling space to condense the water molecules by bringing the ambient temperature below the dew point to the corresponding relative humidity. It comprises essentially of six aluminium heat sinks [22] placed in a high-density poly­ethylene (HDPE) casing [14]. The entire setup is given at 20° inclination. Each heat sink is fitted with six peltier modules [23], totalling 36 pieces to bring about a temperature drop to 10°C. This will initiate condensation of moisture from the air stream supplied by the adsorption chamber [9] and blower [10]. The movement of the air stream will further push down the condensed water molecules sticking on the plates to be collected below thereby regenerating fin area for fresher condensation. Since the entire casing is made of HDPE [14], cooled space can be maintained without much wastage.
+</p>
+<p>
+Accessory 1: Heating tank  
+The cylindrically constructed system [5] is used to heat the therminol to 100°C, which in turn is supplied to the adsorption chamber via a pump [3] for silica regeneration. The heating element is an immersion heating rod [4] capable of heating to a set 125°C placed a few centimetres above the base of the cylinder. In addition, a solar collector [28] is also provided to cut down the energy intake by heating the fluid during day time.
+</p>
+<p>
+Accessory 2: Cooling system  
+The facility comprises of a cooling tank [13], diaphragm pump [11] and radiators [15][16][17]. The cooling tank [13] is made of aluminium with additional heat sinks provided on the inside to enhance heat uptake. The jacket is placed over the hot side of the peltier modules [23] acting as a thermal sink. This heat is further taken away by water to be dissipated in the radiators [15][16][17] by the pump [11].
+</p>
+<p>
+Accessory 3: Centrifugal blower [10] and vacuum pump [2]  
+The blower [10] delivers the ambient air into the system with an exit pressure of 1.6 bars at 0.4 KW. A single stage vacuum pump [2] is used to vacuum the chamber before desorption and also the TEC corridor for the down flow of water vapour to the fins.
+</p>
+<p>
+Working: Ambient air is delivered to the system via a centrifugal blower [10], supplying continuously to the adsorption chamber [9] through a ball valve [8]. The adsorption chamber (ADC) [9] consists of immersion pillow plates [25] with wire mesh welded to its surfaces. These mesh acts as pocket for the silica gel granules to be held. The silica adsorbs moisture from the supplied air and gets saturated. During this phase valves V1, V2 and V3 remain open whereas V4 remains closed. After saturation, the inlet valve V1 is shut off. The pertaining air is then exhausted out by the vacuum pump [2]. Vacuum is further induced to accelerate the desorption process. Once these setups are done the chamber is completely isolated by shutting V1 and V3.
+</p>    
+<p style="font-family: 'Asterix', sans-serif; color: red;">
+  <i>The numbers enclosed in [ ] refers to the system component IDs which can be found in System Components Overview</i>
+</p>
+</div>
+  </div>
+
+  <script>
+    const slidesEl = document.querySelector('.slides');
+    const total    = document.querySelectorAll('.slide').length;
+    let   idx      = 0;
+    function update() {
+      slidesEl.style.transform = `translateX(-${idx * 100}%)`;
+    }
+    document.querySelector('.next').onclick = () => {
+      idx = (idx + 1) % total; update();
+    };
+    document.querySelector('.prev').onclick = () => {
+      idx = (idx - 1 + total) % total; update();
+    };
+    // autoplay every 3 seconds
+    setInterval(() => { idx = (idx + 1) % total; update(); }, 3000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particle Deconstruct</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+  }
+
+  .particle-deconstruct-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .particle-deconstruct-element {
+    width: 300px;
+    height: 200px;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .particle-deconstruct-element h2 {
+    color: #0ff;
+    font-size: 2rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s ease;
+  }
+
+  .particle-deconstruct-element::before,
+  .particle-deconstruct-element::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-radial-gradient(
+      circle at center, 
+      #0ff 1px, 
+      transparent 2px, 
+      transparent 50px
+    );
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+
+  .particle-deconstruct-element:hover h2 {
+    transform: scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+
+  .particle-deconstruct-element:hover::before {
+    transform: scale(2) rotate(45deg);
+    opacity: 0.3;
+  }
+
+  .particle-deconstruct-element:hover::after {
+    transform: scale(2) rotate(-45deg);
+    opacity: 0.3;
+  }
+</style>
+</head>
+<body>
+
+<div class="particle-deconstruct-container">
+  <div class="particle-deconstruct-element">
+    <h2>EXPLODE</h2>
+  </div>
+</div>
+
+<script>
+    // grab the particle box
+    const container = document.querySelector('.particle-deconstruct-element');
+  
+    // create a new span for "HEXY"
+    const hexy = document.createElement('span');
+    hexy.textContent = 'HEXY';
+  
+    // inline-style it so it matches your existing look/position
+    Object.assign(hexy.style, {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      color: '#0ff',
+      fontSize: '2rem',
+      zIndex: 2,
+      opacity: 0,
+      transition: 'opacity 0.5s ease',
+      pointerEvents: 'none'   // so it doesn't steal hover
+    });
+  
+    // stick it in the DOM
+    container.appendChild(hexy);
+  
+    // on hover in, fade it up; on hover out, fade it away
+    container.addEventListener('mouseenter', () => {
+      hexy.style.opacity = '1';
+    });
+    container.addEventListener('mouseleave', () => {
+      hexy.style.opacity = '0';
+    });
+  </script>
+  
+  
+</body>
+</html>
