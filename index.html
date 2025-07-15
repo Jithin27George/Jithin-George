@@ -59,6 +59,12 @@
       color: #ddd;
     }
 
+    /* ── ALLOW SCROLLING ── */
+    html, body {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
     /* ── NAVIGATION BAR ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
@@ -103,8 +109,9 @@
       max-width: 1000px;
       margin: 0 auto;
 
-      /* ensure it fills remaining height */
-      height: calc(100vh - 70px);
+      min-height: calc(100vh - 70px);
+      padding: 2rem 1rem;         /* add breathing room on small screens */
+      box-sizing: border-box;
 
       position: relative;
       z-index: 3;         /* above background layers */
@@ -116,19 +123,47 @@
       font-family: "Michroma", sans-serif;
       color: #eee;
       margin-bottom: 1rem;
-      font-size: clamp(2rem, 6vw, 4rem);
+      font-size: 2.5rem;
     }
 
     .content p {
       /* justified body text */
       text-align: justify;
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 1rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
     .content spl {
       font-size: 1.3rem;
     }
+    
+    /* ── MEDIA QUERIES FOR TABLETS / SMALL DESKTOP ── */
+    @media (min-width: 600px) {
+      .content {
+        padding: 3rem 2rem;
+      }
+      .content h2 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+      }
+      .content p {
+        font-size: 1.1rem;
+      }
+    }
+    
+    /* ── MAKE THE HERO STRUCTURE FLEXIBLE ── */
+    @media (max-width: 600px) {
+      .content {
+        display: block;            /* stack everything vertically */
+        text-align: left;          /* left-align for readability */
+      }
+      .content h2 {
+        margin-bottom: 1rem;
+      }
+      .content p {
+        margin-bottom: 1.5rem;
+      }
+    }
+
   </style>
 </head>
 <body>
