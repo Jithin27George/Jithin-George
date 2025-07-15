@@ -1,232 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Solar Hybrid Atmospheric Water Generator</title>
-
-  <!-- Michroma for the heading -->
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jithin George – Portfolio</title>
 
   <style>
-    /* Reset + dark background */
+    /* ── IMPORTS & CSS VARIABLES ── */
+    @import url("https://fonts.googleapis.com/css2?family=Varela+Round&family=Michroma&display=swap");
+    :root {
+      --dark-color: #191f1d;
+      --shadow:      #0005;
+      --noise-tx:    url(https://i.gyazo.com/a26366e538851a5c569ff648e99b7fd4.png);
+      --gif-tx:      url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
+      --bg-gradient: linear-gradient(var(--dark-color) 77.4%, var(--dark-color) 87.48%);
+    }
+
+    /* ── FULL-SCREEN BACKGROUND EFFECT ── */
     html, body {
       margin: 0; padding: 0;
-      background: #1c1d22; color: #fff;
-      font-family: sans-serif;
-      /* full-screen gradient + spawn animation */
-      --dark-color: #191f1d;
-      --shadow: #0005;
-      --noise-tx: url(https://i.gyazo.com/a26366e538851a5c569ff648e99b7fd4.png);
-      --gif-tx: url(https://64.media.tumblr.com/da60c13b478dda09ab90c27e880983b8/tumblr_nd4pwdPKdc1tun3l0o1_1280.gifv);
-      --bg-gradient: linear-gradient(var(--dark-color) 77.4%, var(--dark-color) 87.48%);
+      width: 100%; height: 100%;
+      position: relative; overflow: hidden;
       background: var(--bg-gradient);
       animation: spawn 2s ease-in-out forwards;
-      /* allow scrolling */
-      min-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    @keyframes spawn {
-      0% { box-shadow:0 0 0 var(--shadow); opacity:0 }
-      100% { box-shadow:0 0 32px var(--shadow); opacity:1 }
-    }
-    /* noise + shimmer layers pinned behind everything */
-    html::before, body::before,
-    html:hover::after, body:hover::after {
-      content: "";
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      pointer-events: none;
-      z-index: -1;
     }
     html::before, body::before {
+      content: "";
+      position: absolute; top:0; left:0;
+      width:100%; height:100%;
       background-image: var(--noise-tx);
       mix-blend-mode: overlay;
+      pointer-events: none; z-index: 1;
     }
     html:hover::after, body:hover::after {
+      content: "";
+      position: absolute; top:0; left:0;
+      width:100%; height:100%;
       background-image: var(--gif-tx);
       background-repeat: no-repeat;
       background-size: cover;
       mix-blend-mode: screen;
       opacity: 0.64;
+      pointer-events: none; z-index: 2;
+    }
+    @keyframes spawn {
+      0%   { box-shadow: 0 0 0 var(--shadow); opacity: 0; }
+      100% { box-shadow: 0 0 32px var(--shadow); opacity: 1; }
     }
 
-    /* Center in a container */
-    .container {
-      width: 90vw; max-width: 700px;
-      margin: 2rem auto 2rem;
+    /* ── RESET & BASE ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      letter-spacing: 1px;
+    }
+    body, html {
+      font-family: "Varela Round", sans-serif;
+      color: #ddd;
     }
 
-    /* Title */
-    h1 {
-      font-family: 'Michroma', sans-serif;
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 1rem;
+    /* ── ALLOW SCROLLING ── */
+    html, body {
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
-    /* Slider */
-    .slider {
-      position: relative;
-      width: 100%;
-      height: 50vh;
-      max-height: 700px;
-      overflow: hidden;
-      border-radius: 8px;
-      background: #111;
-    }
-    .slides {
-      display: flex; height: 100%;
-      transition: transform .5s ease;
-    }
-    .slide {
-      flex: 0 0 100%; width: 100%;
-    }
-    .slide img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-    }
-    .arrow {
-      position: absolute; top:50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.3);
-      color: #fff; font-size: 2rem;
-      padding: .5rem; cursor: pointer;
-      border-radius: 4px; user-select:none;
-    }
-    .arrow.prev { left:1rem }
-    .arrow.next { right:1rem }
-
-    /* Description */
-    .description {
-      margin-top: 1.5rem;
-      text-align: justify; line-height:1.6;
-      font-size:1rem;
-    }
-
-    /* ── NAV ── */
+    /* ── NAVIGATION BAR ── */
     nav {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: #1c1d22; padding:10px 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #1c1d22; padding: 10px 0;
+      z-index: 5;
     }
     .menu {
-      display: flex; justify-content:center;
-      align-items:center; list-style:none;
-      flex-wrap: wrap;
+      display: flex; justify-content: center;
+      list-style: none;
     }
     .menu li { margin: 0 20px; }
-    .menu li a {
-      font-size: 22px; color:#777;
-      text-decoration:none; padding:10px 0;
-      transition: color .45s;
-      display:inline-block;
+    .menu a {
+      font-size: 1.1rem; color: #777;
+      text-decoration: none; padding: 5px 0;
+      transition: color .3s;
+      display: inline-block;
     }
-    .menu li:hover {
+    .menu li:hover { 
       background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEi%0D%0AIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhs%0D%0AaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0%0D%0AaD0iMzkwcHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDM5MCA1MCIgZW5hYmxlLWJhY2tn%0D%0Acm91bmQ9Im5ldyAwIDAgMzkwIDUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZmlsbD0i%0D%0Abm9uZSIgc3Ryb2tlPSIjZDk0ZjVjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW1pdGVybGlt%0D%0AaXQ9IjEwIiBkPSJNMCw0Ny41ODVjMCwwLDk3LjUsMCwxMzAsMAoJYzEzLjc1LDAsMjguNzQtMzgu%0D%0ANzc4LDQ2LjE2OC0xOS40MTZDMTkyLjY2OSw0Ni41LDI0My42MDMsNDcuNTg1LDI2MCw0Ny41ODVj%0D%0AMzEuODIxLDAsMTMwLDAsMTMwLDAiLz4KPC9zdmc+Cg==") no-repeat center bottom;
       animation: line 1s;
     }
-    .menu li:hover a { color:#006BFF }
-    @keyframes line { 0%{ background-position-x:390px } }
+    .menu li:hover a { color: #006BFF; }
 
-    /* make room below nav */
-    .content { padding-top: 70px; }
+    .menu li.brand { cursor: default; }
+    .menu li.brand:hover { background: none !important; }
+    .menu li.brand a { color: #fff; font-weight: bold; }
 
-    /* ── MOBILE TWEAKS ── */
-    @media (max-width: 480px) {
-      nav { padding: 6px 0; }
-      .menu li { margin: 0 8px; }
-      .menu li a {
-        font-size: .9rem;
-        padding: 6px 0;
-      }
-      .container h1 {
-        font-size: 1.75rem;
-      }
-      .content { padding-top: 50px; }
+    @keyframes line { 0% { background-position-x: 390px; } }
+
+    /* ── PAGE CONTENT ── */
+    .content {
+      /* leave room for the fixed nav */
+      padding-top: 70px;
+
+      /* center in the window */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      /* constrain width and auto-margin for horizontal centering */
+      max-width: 1000px;
+      margin: 0 auto;
+
+      min-height: calc(100vh - 70px);
+      padding: 2rem 1rem;         /* add breathing room on small screens */
+      box-sizing: border-box;
+
+      position: relative;
+      z-index: 3;         /* above background layers */
+      color: #ddd;
+      text-align: center; /* headings centered */
     }
+
+    .content h2 {
+      font-family: "Michroma", sans-serif;
+      color: #eee;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .content p {
+      /* justified body text */
+      text-align: justify;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    .content spl {
+      font-size: 1.3rem;
+    }
+    
+    /* ── MEDIA QUERIES FOR TABLETS / SMALL DESKTOP ── */
+    @media (min-width: 600px) {
+      .content {
+        padding: 3rem 2rem;
+      }
+      .content h2 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+      }
+      .content p {
+        font-size: 1.1rem;
+      }
+    }
+    
+    /* ── MAKE THE HERO STRUCTURE FLEXIBLE ── */
+    @media (max-width: 600px) {
+      .content {
+        display: block;            /* stack everything vertically */
+        text-align: left;          /* left-align for readability */
+      }
+      .content h2 {
+        margin-bottom: 1rem;
+      }
+      .content p {
+        margin-bottom: 1.5rem;
+      }
+    }
+
   </style>
 </head>
 <body>
-    <nav>
+
+  <nav>
     <ul class="menu">
-      <li><a href="Diagram.html">System Components Overview</a></li>
-      <li><a href="https://drive.google.com/file/d/1EsffHzECB7guyHXzCJvu3QpkmcCr8stq/view">Patent</a></li>
+      <li><a href="Project.html">Projects</a></li>
+      <li><a href="https://github.com/Jithin27George">GitHub</a></li>
+      <li class="brand"><a href="#!">JITHIN GEORGE</a></li>
+      <li><a href="https://linkedin.com/in/jithin-george27">LinkedIn</a></li>
+      <li><a href="mailto:gjithin5241235@gmail.com">Email</a></li>
     </ul>
   </nav>
 
-  <div class="content">  </div>
-  
-  
-  <div class="container">
-    <h1>Solar Hybrid Atmospheric Water Generator</h1>
+  <div class="content">
 
-    <div class="slider">
-      <div class="slides">
-        <div class="slide">
-          <img src="Media/Img11.jpg" alt="SHAWG Prototype">
-        </div>
-        <div class="slide">
-          <img src="Media/Img5.jpg" alt="TEC Corridor">
-        </div>
-        <div class="slide">
-          <img src="Media/Img1.jpg" alt="Adsorption Chamber">
-        </div>
-      </div>
-      <div class="arrow prev">‹</div>
-      <div class="arrow next">›</div>
-    </div>
+    <h2>Meet,</h2>
+    <p><b><u><spl>Jithin George</spl></u></b>, a Mechanical and Robotics Engineer with a Master’s in Mechatronics, Automation, and Robotics from NYU Tandon and a Bachelor’s in Mechanical Engineering.
 
-    <div class="description">
-      <p>
-The prototype Solar Hybrid Adsorption Water Generator (SHAWG) offers another alternative to atmospheric water generation from the present Vapour Compression Refrigeration System (VCRS) method. It combines the adsorption/desorption and peltier effect to bring about this process. Subsequently the system comprises of two main units; adsorption/desorption chamber [9] and the Thermo Electric Cooler (TEC) corridor supported by auxiliary units like, cooling system, heating system, blower [10] etc.
-</p>
-<p>
-Component A: Adsorption/desorption chamber  
-The adsorption/desorption chamber and its various components are shown in Figure 1. The chamber is designed to work under a vacuum of and temperature of 100°C. The chamber is constructed in a cuboidal manner with support members running inside to prevent any buckling during the vacuuming process. The chamber is provided with a manhole at the base to ease access. Pressure [7] and vacuum [6] gauges are mounted on the top of the chamber head. The unit consists of five wire meshed immersion plates [25] connected in series. Each plate is charged with a kilogram of Type-A silica gel. The inlet and exits of the plates are joined to the chamber head [27] by means of unions [26]. This setup confers additional stability to the head so as to not buckle inward. The entire chamber head can be lifted from top along with the plates for cleaning or recharging.
-</p>
-<p>
-Component B: TEC corridor  
-The unit provides the cooling space to condense the water molecules by bringing the ambient temperature below the dew point to the corresponding relative humidity. It comprises essentially of six aluminium heat sinks [22] placed in a high-density poly­ethylene (HDPE) casing [14]. The entire setup is given at 20° inclination. Each heat sink is fitted with six peltier modules [23], totalling 36 pieces to bring about a temperature drop to 10°C. This will initiate condensation of moisture from the air stream supplied by the adsorption chamber [9] and blower [10]. The movement of the air stream will further push down the condensed water molecules sticking on the plates to be collected below thereby regenerating fin area for fresher condensation. Since the entire casing is made of HDPE [14], cooled space can be maintained without much wastage.
-</p>
-<p>
-Accessory 1: Heating tank  
-The cylindrically constructed system [5] is used to heat the therminol to 100°C, which in turn is supplied to the adsorption chamber via a pump [3] for silica regeneration. The heating element is an immersion heating rod [4] capable of heating to a set 125°C placed a few centimetres above the base of the cylinder. In addition, a solar collector [28] is also provided to cut down the energy intake by heating the fluid during day time.
-</p>
-<p>
-Accessory 2: Cooling system  
-The facility comprises of a cooling tank [13], diaphragm pump [11] and radiators [15][16][17]. The cooling tank [13] is made of aluminium with additional heat sinks provided on the inside to enhance heat uptake. The jacket is placed over the hot side of the peltier modules [23] acting as a thermal sink. This heat is further taken away by water to be dissipated in the radiators [15][16][17] by the pump [11].
-</p>
-<p>
-Accessory 3: Centrifugal blower [10] and vacuum pump [2]  
-The blower [10] delivers the ambient air into the system with an exit pressure of 1.6 bars at 0.4 KW. A single stage vacuum pump [2] is used to vacuum the chamber before desorption and also the TEC corridor for the down flow of water vapour to the fins.
-</p>
-<p>
-Working: Ambient air is delivered to the system via a centrifugal blower [10], supplying continuously to the adsorption chamber [9] through a ball valve [8]. The adsorption chamber (ADC) [9] consists of immersion pillow plates [25] with wire mesh welded to its surfaces. These mesh acts as pocket for the silica gel granules to be held. The silica adsorbs moisture from the supplied air and gets saturated. During this phase valves V1, V2 and V3 remain open whereas V4 remains closed. After saturation, the inlet valve V1 is shut off. The pertaining air is then exhausted out by the vacuum pump [2]. Vacuum is further induced to accelerate the desorption process. Once these setups are done the chamber is completely isolated by shutting V1 and V3.
-</p>    
-<p style="font-family: 'Asterix', sans-serif; color: red;">
-  <i>The numbers enclosed in [ ] refers to the system component IDs which can be found in System Components Overview</i>
-</p>
-</div>
+      My expertise lies at the intersection of mechanical design, automation, and embedded systems. I have hands-on experience designing and developing robotic systems, integrating control architectures, and automating industrial processes. My work spans from designing humanoid and hexapod robots to implementing industrial automation with Allen-Bradley PLCs and building manufacturable mechanical components optimized for real-world use.
+      
+      I’m passionate about creating intelligent, efficient, and impactful solutions — whether it’s a complex robotic system or a streamlined automation workflow. I thrive on solving engineering challenges and bringing innovative ideas to life through thoughtful design, prototyping, and testing.
+      
+      On this site, you’ll find highlights of my projects, skills, and experience. Feel free to reach out — I’m always excited to collaborate and contribute to meaningful engineering and robotics endeavors.</p>
+
   </div>
 
-  <script>
-    const slidesEl = document.querySelector('.slides');
-    const total    = document.querySelectorAll('.slide').length;
-    let   idx      = 0;
-    function update() {
-      slidesEl.style.transform = `translateX(-${idx * 100}%)`;
-    }
-    document.querySelector('.next').onclick = () => {
-      idx = (idx + 1) % total; update();
-    };
-    document.querySelector('.prev').onclick = () => {
-      idx = (idx - 1 + total) % total; update();
-    };
-    // autoplay every 3 seconds
-    setInterval(() => { idx = (idx + 1) % total; update(); }, 3000);
-  </script>
+  <footer>
+    <center><p>---------------- © 2025 Jithin George. All rights reserved ----------------</p></center>
+  </footer>
+
 </body>
 </html>
