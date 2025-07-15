@@ -74,6 +74,7 @@
       background: #1c1d22; 
       padding: 10px;
       z-index: 999;
+      height: 60px;
     }
     .menu {
       display: flex;
@@ -102,39 +103,41 @@
 
     /* ── PAGE CONTENT ── */
     .content {
-      /* leave room for the fixed nav */
+      /* leave room for the fixed nav (60px high) */
       padding-top: 60px;
-
-      /* center in the window */
+    
+      /* center in the remaining viewport */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
-      /* constrain width and auto-margin for horizontal centering */
+      text-align: center;
+    
+      /* constrain width and center horizontally */
       max-width: 1000px;
       margin: 0 auto;
-
-      min-height: calc(100vh - 70px);
-      padding: 2rem 1rem;         /* add breathing room on small screens */
+    
+      /* span full height minus nav */
+      min-height: calc(100vh - 60px);
+    
+      /* horizontal breathing room */
+      padding-left: 1rem;
+      padding-right: 1rem;
+    
       box-sizing: border-box;
-
       position: relative;
-      z-index: 3;         /* above background layers */
+      z-index: 3;
       color: #ddd;
-      text-align: center; /* headings centered */
     }
-
+    
     .content h2 {
       font-family: "Michroma", sans-serif;
       color: #eee;
       margin-bottom: 1rem;
       font-size: 2.5rem;
     }
-
+    
     .content p {
-      /* justified body text */
-      text-align: justify;
       line-height: 1.5;
       margin-bottom: 1rem;
       font-size: 1rem;
